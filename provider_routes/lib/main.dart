@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       ],
       builder: (context, child) {
         return MaterialApp(
-          initialRoute: RouteManager.loginPage,
+          initialRoute: RouteManager.settingsPage,
           onGenerateRoute: RouteManager.generateRoute,
         );
       },
