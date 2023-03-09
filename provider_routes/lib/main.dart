@@ -22,15 +22,18 @@ class MyApp extends StatelessWidget {
           create: (context) => User(),
         ),
         ChangeNotifierProvider(
-          create: (context) => SettingsData(),
+          create: (context) => SettingsModel(),
         )
       ],
-      builder: (context, child) {
-        return MaterialApp(
-          initialRoute: RouteManager.settingsPage,
-          onGenerateRoute: RouteManager.generateRoute,
-        );
-      },
+      child: Consumer<SettingsModel>(
+        builder: (context, value, child) {
+          return MaterialApp(
+            theme: value.darkTheme? darkTheme : lightTheme ,
+            initialRoute: RouteManager.settingsPage,
+            onGenerateRoute: RouteManager.generateRoute,
+          );
+        },
+      ),
     );
   }
 }

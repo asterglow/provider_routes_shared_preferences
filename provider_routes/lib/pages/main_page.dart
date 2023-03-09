@@ -11,12 +11,12 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print('Building MainPage');
+    print('Building MainPage');
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: context.watch<SettingsData>().appBarColor,
+        backgroundColor: context.watch<SettingsModel>().appBarColor,
         automaticallyImplyLeading: false,
-        title: Text('Main Screen'),
+        title: Text('Main Page'),
         actions: [
           IconButton(
             onPressed: () {

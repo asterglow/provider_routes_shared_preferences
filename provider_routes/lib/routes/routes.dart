@@ -24,7 +24,7 @@ class RouteManager {
 
       case settingsPage:
         return MaterialPageRoute(
-          builder: (context) => Settings(),
+          builder: (context) => SettingsPage(),
         );
 
       default:

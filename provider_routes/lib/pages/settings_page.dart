@@ -4,17 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_routes/models/settings_model.dart';
+import 'package:provider_routes/routes/routes.dart';
 
-class Settings extends StatelessWidget {
-  const Settings({Key? key}) : super(key: key);
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print('Building Settings');
+    print('Building SettingsPage');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
-      ),
+          automaticallyImplyLeading: false,
+          title: Text('Settings'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).popAndPushNamed(RouteManager.mainPage);
+              },
+              icon: Icon(Icons.exit_to_app),
+            )
+          ]),
       body: Column(
         children: [
           Padding(
@@ -22,7 +31,71 @@ class Settings extends StatelessWidget {
             child: Card(
               child: ListTile(
                 // leading: Text('Leading'),
-                title: Text('        Theme', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
+                title: Text(
+                  '        Theme',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                trailing: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Consumer<SettingsModel>(
+                    builder: (context, value, child) {
+                       return LiteRollingSwitch(
+                      value: value.darkTheme,
+                      width: 120,
+                      animationDuration: Duration(milliseconds: 300),
+                      textOff: 'Light  ',
+                      textOn: '    Dark',
+                      textOnColor: Colors.white60,
+                      textOffColor: Colors.white,
+                      colorOff: Colors.orange,
+                      colorOn: Colors.black54,
+                      iconOff: Icons.sunny,
+                      iconOn: Icons.nightlight_round_sharp,
+                      textSize: 14,
+                      onChanged: (bool thm) {
+                        print('Light $thm');
+                        value.toggleTheme();
+                      },
+                      onTap: () {},
+                      onDoubleTap: () {},
+                      onSwipe: () {},
+                    );
+                    },
+                    child: LiteRollingSwitch(
+                      // value: false,
+                      width: 120,
+                      animationDuration: Duration(milliseconds: 300),
+                      textOff: 'Light  ',
+                      textOn: '    Dark',
+                      textOnColor: Colors.white60,
+                      textOffColor: Colors.white,
+                      colorOff: Colors.orange,
+                      colorOn: Colors.black54,
+                      iconOff: Icons.sunny,
+                      iconOn: Icons.nightlight_round_sharp,
+                      textSize: 14,
+                      onChanged: (bool thm) {
+                        print('Light $thm');
+                        
+                      },
+                      onTap: () {},
+                      onDoubleTap: () {},
+                      onSwipe: () {},
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              child: ListTile(
+                // leading: Text('Leading'),
+                title: Text(
+                  '        Sound',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
                 trailing: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: LiteRollingSwitch(
@@ -38,8 +111,8 @@ class Settings extends StatelessWidget {
                     iconOff: Icons.sunny,
                     iconOn: Icons.nightlight_round_sharp,
                     textSize: 14,
-                    onChanged: (bool pos) {
-                      print('Light $pos');
+                    onChanged: (bool snd) {
+                      print('sound $snd');
                     },
                     onTap: () {},
                     onDoubleTap: () {},
@@ -48,7 +121,48 @@ class Settings extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              child: ListTile(
+                // leading: Text('Leading'),
+                title: Text(
+                  '        Colour',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                trailing: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: LiteRollingSwitch(
+                    value: false,
+                    width: 120,
+                    animationDuration: Duration(milliseconds: 300),
+                    textOff: 'Light  ',
+                    textOn: '    Dark',
+                    textOnColor: Colors.white60,
+                    textOffColor: Colors.white,
+                    colorOff: Colors.orange,
+                    colorOn: Colors.black54,
+                    iconOff: Icons.sunny,
+                    iconOn: Icons.nightlight_round_sharp,
+                    textSize: 14,
+                    onChanged: (bool clr) {
+                      print('colour $clr');
+                      if (clr = true) {
+                        context.read<SettingsModel>().appBarColor =
+                            Colors.purple;
+                      } else {
+                        context.read<SettingsModel>().appBarColor = Colors.blue;
+                      }
+                    },
+                    onTap: () {},
+                    onDoubleTap: () {},
+                    onSwipe: () {},
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
       // body: Center(
