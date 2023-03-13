@@ -5,13 +5,16 @@ import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_routes/models/settings_model.dart';
 import 'package:provider_routes/routes/routes.dart';
+import 'package:rolling_switch/rolling_switch.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
+
   Widget build(BuildContext context) {
-    print('Building SettingsPage');
+    // print('Building SettingsPage');
+    // bool abc = context.watch<SettingsModel>().darkTheme;
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -39,49 +42,28 @@ class SettingsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Consumer<SettingsModel>(
                     builder: (context, value, child) {
-                       return LiteRollingSwitch(
-                      value: value.darkTheme,
-                      width: 120,
-                      animationDuration: Duration(milliseconds: 300),
-                      textOff: 'Light  ',
-                      textOn: '    Dark',
-                      textOnColor: Colors.white60,
-                      textOffColor: Colors.white,
-                      colorOff: Colors.orange,
-                      colorOn: Colors.black54,
-                      iconOff: Icons.sunny,
-                      iconOn: Icons.nightlight_round_sharp,
-                      textSize: 14,
-                      onChanged: (bool thm) {
-                        print('Light $thm');
-                        value.toggleTheme();
-                      },
-                      onTap: () {},
-                      onDoubleTap: () {},
-                      onSwipe: () {},
-                    );
+                      return LiteRollingSwitch(
+                        value: value.darkTheme,
+                        // width: 120,
+                        animationDuration: Duration(milliseconds: 200),
+                        textOff: 'Light   ',
+                        textOn: '    Dark',
+                        textOnColor: Colors.white60,
+                        textOffColor: Colors.white,
+                        colorOff: Colors.orange,
+                        colorOn: Colors.black54,
+                        iconOff: Icons.sunny,
+                        iconOn: Icons.nightlight_round_sharp,
+                        textSize: 14,
+                        onChanged: (bool thm) {
+                          // print('Light $thm');
+                          value.toggleTheme();
+                        },
+                        onTap: () {},
+                        onDoubleTap: () {},
+                        onSwipe: () {},
+                      );
                     },
-                    child: LiteRollingSwitch(
-                      // value: false,
-                      width: 120,
-                      animationDuration: Duration(milliseconds: 300),
-                      textOff: 'Light  ',
-                      textOn: '    Dark',
-                      textOnColor: Colors.white60,
-                      textOffColor: Colors.white,
-                      colorOff: Colors.orange,
-                      colorOn: Colors.black54,
-                      iconOff: Icons.sunny,
-                      iconOn: Icons.nightlight_round_sharp,
-                      textSize: 14,
-                      onChanged: (bool thm) {
-                        print('Light $thm');
-                        
-                      },
-                      onTap: () {},
-                      onDoubleTap: () {},
-                      onSwipe: () {},
-                    ),
                   ),
                 ),
               ),
@@ -99,20 +81,19 @@ class SettingsPage extends StatelessWidget {
                 trailing: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: LiteRollingSwitch(
-                    value: false,
-                    width: 120,
-                    animationDuration: Duration(milliseconds: 300),
-                    textOff: 'Light  ',
-                    textOn: '    Dark',
-                    textOnColor: Colors.white60,
+                    value: true,
+                    animationDuration: Duration(milliseconds: 200),
+                    textOn: '    On',
+                    textOff: '   Muted',
+                    textOnColor: Colors.white,
                     textOffColor: Colors.white,
-                    colorOff: Colors.orange,
-                    colorOn: Colors.black54,
-                    iconOff: Icons.sunny,
-                    iconOn: Icons.nightlight_round_sharp,
+                    colorOff: Colors.redAccent,
+                    colorOn: Colors.green,
+                    iconOn: Icons.alarm_off_sharp,
+                    iconOff: Icons.done_sharp,
                     textSize: 14,
                     onChanged: (bool snd) {
-                      print('sound $snd');
+                      // print('sound $snd');
                     },
                     onTap: () {},
                     onDoubleTap: () {},
@@ -135,14 +116,14 @@ class SettingsPage extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: LiteRollingSwitch(
                     value: false,
-                    width: 120,
-                    animationDuration: Duration(milliseconds: 300),
-                    textOff: 'Light  ',
-                    textOn: '    Dark',
-                    textOnColor: Colors.white60,
+                    
+                    animationDuration: Duration(milliseconds: 200),
+                    textOff: 'Blue   ',
+                    textOn: '  Purple',
+                    textOnColor: Colors.white,
                     textOffColor: Colors.white,
-                    colorOff: Colors.orange,
-                    colorOn: Colors.black54,
+                    colorOff: Colors.blue,
+                    colorOn: Colors.purple,
                     iconOff: Icons.sunny,
                     iconOn: Icons.nightlight_round_sharp,
                     textSize: 14,
@@ -162,6 +143,26 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          Consumer<SettingsModel>(
+            builder: (context, value, child) {
+              return SwitchListTile(
+                value: value.darkTheme,
+                onChanged: (valueNew) {
+                  value.toggleTheme();
+                },
+              );
+            },
+          ),
+          Consumer<SettingsModel>(
+            builder: (context, value, child) {
+              return RollingSwitch.icon(
+                initialState: value.darkTheme,
+                onChanged: (valueNew) {
+                  value.toggleTheme();
+                },
+              );
+            },
           ),
         ],
       ),
@@ -201,44 +202,8 @@ class SettingsPage extends StatelessWidget {
       //       // title: Text('Light'),
       //       // subtitle: Text('Dark'), secondary: Text('Dark'),
       //       // activeThumbImage: 'assets/images/1.jpeg',)
-      // LiteRollingSwitch(
-      //   value: true,
-      //   width: 120,
-      //   animationDuration: Duration(milliseconds: 300),
-      //   textOff: 'Light',
-      //   textOn: 'Dark',
-      //   textOnColor: Colors.white60 ,
-      //   textOffColor: Colors.white70 ,
-      //   colorOff: Colors.deepOrangeAccent ,
-      //   colorOn: Colors.black54 ,
-      //   iconOff: Icons.wb_sunny_sharp,
-      //   iconOn: Icons.mode_night,
-      //   textSize: 14,
-      //   onChanged: (bool pos) {
-      //     print('Light $pos');
-      //   },
-      //   onTap: () {},
-      //   onDoubleTap: () {},
-      //   onSwipe: () {},
-      // ),
-      // LiteRollingSwitch(
-      //         value: true,
-      //         textOff: 'Muted',
-      //         textOn: 'On',
-      //         // textOnColor: Colors.black,
-      //         // textOffColor: Colors.white54,
-      //         colorOff: Colors.redAccent,
-      //         colorOn: Colors.greenAccent,
-      //         iconOff: Icons.alarm_off,
-      //         iconOn: Icons.done,
-      //         textSize: 18,
-      //         onChanged: (bool pos) {
-      //           print('Sounds $pos');
-      //         },
-      //         onTap: () {},
-      //         onDoubleTap: () {},
-      //         onSwipe: () {},
-      //       ),
+
+
 
       //     ],
       //   ),
