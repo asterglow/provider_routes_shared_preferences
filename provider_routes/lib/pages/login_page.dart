@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:provider_routes/models/settings_model.dart';
 import '../models/user_model.dart';
 import '../routes/routes.dart';
 
@@ -44,14 +45,14 @@ class _LoginState extends State<Login> {
               child: TextField(
                 keyboardType: TextInputType.text,
                 controller: usernameController,
-  
+
                 onSubmitted: (value) {
                   // context.read<User>().username =
                   //     usernameController.text.trim();
                   // Navigator.of(context).pushNamed(RouteManager.mainPage);
 
                   setState(() {
-                    submittext = 'Enter again or Click to submit';
+                    submittext = 'Press Enter again or click on Login';
                   });
                 },
                 textInputAction: TextInputAction.next,
@@ -64,10 +65,23 @@ class _LoginState extends State<Login> {
             ElevatedButton(
               onFocusChange: (value) {},
               onPressed: () {
-                context.read<User>().username = usernameController.text.trim();
-                Navigator.of(context).pushNamed(RouteManager.mainPage);
+                if (usernameController.text.isEmpty) {
+                  setState(() {
+                    submittext = 'Username cannot be empty';
+                  });
+                } else if (context.read<SettingsModel>().userlogin == 'empty') {
+                  context.read<User>().username =
+                      usernameController.text.trim();
+                  context.read<SettingsModel>().userlogin =
+                      usernameController.text.trim();
+                  context.read<SettingsModel>().saveuserloginToPrefs;
+                  Navigator.of(context).pushNamed(RouteManager.mainPage);
+                } else {
+                 context.read<User>().username = context.read<SettingsModel>().userlogin;
+                  Navigator.of(context).pushNamed(RouteManager.mainPage);
+                }
               },
-              child: Text('Submit'),
+              child: Text('Login'),
             ),
             Text(
               submittext,

@@ -40,6 +40,7 @@ dependencies:
   shared_preferences: ^2.0.18
   flutter_animate: ^4.1.0
   rolling_switch: ^0.0.2
+  audioplayers: ^3.0.1
 
 dev_dependencies:
   flutter_test:

@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           return value.doneLoading
               ? MaterialApp(
                   theme: value.darkTheme ? darkTheme : lightTheme,
-                  initialRoute: RouteManager.settingsPage,
+                  initialRoute: RouteManager.loginPage ,
                   onGenerateRoute: RouteManager.generateRoute,
                 )
               : LoadingScreen(

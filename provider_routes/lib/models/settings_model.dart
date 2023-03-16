@@ -33,14 +33,17 @@ class SettingsModel with ChangeNotifier {
 
   SettingsModel() {
     _loadPrefsSettings();
+    _loadPrefsTouserlogin();
   }
 
   bool _darkTheme = false;
   SharedPreferences? _preferences;
   bool _doneLoading = false;
+  String _userlogin = '';
 
   bool get darkTheme => _darkTheme;
   bool get doneLoading => _doneLoading;
+  String get userlogin => _userlogin;
 
   set darkTheme(bool bool) {
     _darkTheme = bool;
@@ -49,6 +52,11 @@ class SettingsModel with ChangeNotifier {
 
   set doneLoading(bool bool) {
     _doneLoading = bool;
+    notifyListeners();
+  }
+
+  set userlogin(String string){
+    _userlogin = string;
     notifyListeners();
   }
 
@@ -72,4 +80,17 @@ class SettingsModel with ChangeNotifier {
     _saveSettingsPrefs();
     notifyListeners();
   }
+
+  _loadPrefsTouserlogin() async{
+    await _initializePrefs();
+    _userlogin = _preferences?.getString('userlogin') ?? 'empty';
+    notifyListeners();
+  }
+
+  saveuserloginToPrefs()async{
+    await _initializePrefs();
+    _preferences?.setString('userlogin', _userlogin);
+  }
+
+  
 }

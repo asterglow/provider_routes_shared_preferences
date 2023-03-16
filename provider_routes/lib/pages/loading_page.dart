@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_routes/models/settings_model.dart';
@@ -58,8 +59,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
                   color: Colors.purple,
                 ),
               )
-                  .animate().fadeIn(duration: Duration(milliseconds: 2000))
-                  .scaleX(delay: Duration(milliseconds: 1000), begin: 0.6)
+                  .animate()
+                  .fadeIn(duration: Duration(milliseconds: 2000))
+                  .scaleX(delay: Duration(milliseconds: 1000), begin: 0.6),
+              // Text('data'),
+              // AudioPlayer().play(AssetSource('')),
+              
             ],
           ),
         ),
